@@ -9,6 +9,7 @@ services:
     restart: always
     command: >
       sh -c "python manage.py migrate
+      && crond
       && gunicorn storyshare.wsgi:application -t 3600 --bind 0.0.0.0:8000 --reload"
     volumes:
       - ./src/:/var/www/storyshare/
@@ -19,7 +20,5 @@ services:
     ports:
       - 80:80
     command: nginx -g 'daemon off;'
-    # volumes:
-    #   - ./allstatic:/var/www/static/
     depends_on:
       - web

@@ -1,0 +1,1 @@
+* * * * *  python /var/www/storyshare/manage.py process_tasks --duration 55 >> /var/log/cron.log 2>&1
