@@ -2,24 +2,24 @@ version: '3.6'
 
 services:
   web:
-    build: ./
+    build: ./src
+    image: storyshare_web
     tty: true
     stdin_open: true
     restart: always
-    # command: >
-    #   sh -c "python manage.py migrate"
-    #   && gunicorn muslimentrepreneurs.wsgi:application -t 3600 --bind 0.0.0.0:8000 --reload"
+    command: >
+      sh -c "python manage.py migrate
+      && gunicorn storyshare.wsgi:application -t 3600 --bind 0.0.0.0:8000 --reload"
     volumes:
-      - ./storyshare/:/var/www/storyshare/
+      - ./src/:/var/www/storyshare/
   
-#   nginx:
-#     build: ./nginx
-#     restart: always
-#     ports:
-#       - 80:80
-#     command: nginx -g 'daemon off;'
-#     volumes:
-#       - ./nginx/conf.d/local.conf:/etc/nginx/nginx.conf
-#       - ./allstatic:/var/www/static/
-#     depends_on:
-#       - web
+  nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - 80:80
+    command: nginx -g 'daemon off;'
+    # volumes:
+    #   - ./allstatic:/var/www/static/
+    depends_on:
+      - web
