@@ -10,4 +10,8 @@ class StoryListCreate(generics.ListCreateAPIView):
 
 
 class StoryDetailUpdateDelete(generics.RetrieveUpdateDestroyAPIView):
-    pass
+    lookup_field = "id"
+    serializer_class = StorySerializer
+    queryset = Story.objects.all()
+
+    
