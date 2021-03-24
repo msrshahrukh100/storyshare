@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'story',
     'background_task',
-    'rest_framework'
+    'rest_framework',
+    # 'video_encoding'
 ]
 
 MIDDLEWARE = [

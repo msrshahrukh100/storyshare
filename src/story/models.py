@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from PIL import Image
-from .tasks import preprocess
+# from video_encoding.fields import VideoField
+from django.contrib.contenttypes.fields import GenericRelation
+# from video_encoding.models import Format
 
 # Create your models here.
 
@@ -25,19 +26,14 @@ class Story(models.Model):
     )
     height_field = models.IntegerField(null=True, blank=True, default=0)
     width_field = models.IntegerField(null=True, blank=True, default=0)
-    video = models.FileField(null=True, blank=True)
+    name = models.TextField(null=True, blank=True)
     text = models.TextField(null=True, blank=True)
+    # duration = models.FloatField(editable=False, null=True)
+    # video = VideoField(duration_field='duration')
+    # format_set = GenericRelation(Format)
+    # preprocessing_done = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.grapher.email
-    
-    def save(self, *args, **kwargs):
-        super(Story, self).save(*args, **kwargs)
-        preprocess(self.id)
-        # to_resize = Image.open(self.image.path)
-        # if to_resize.width > 1200 or to_resize.height > 600:
-        #     output_size = (1200, 600)
-        #     to_resize.thumbnail(output_size)
-        #     to_resize.save(self.image.path)
+        return str(self.id)
