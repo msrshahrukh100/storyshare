@@ -1,6 +1,7 @@
 from background_task import background
 from .models import Story
 from PIL import Image
+from video_encoding.tasks import convert_all_videos
 
 
 def preprocess_image(story):
@@ -20,5 +21,11 @@ def preprocess(story_id):
     story = Story.objects.get(id=story_id)
     if story.image:
         preprocess_image(story)
+
+    convert_all_videos(
+        story._meta.app_label,
+        story._meta.model_name,
+        story.pk
+    )
     
 

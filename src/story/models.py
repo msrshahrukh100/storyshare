@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from video_encoding.fields import VideoField
+from video_encoding.fields import VideoField
 from django.contrib.contenttypes.fields import GenericRelation
-# from video_encoding.models import Format
+from video_encoding.models import Format
 
 # Create your models here.
 
@@ -28,9 +28,9 @@ class Story(models.Model):
     width_field = models.IntegerField(null=True, blank=True, default=0)
     name = models.CharField(max_length=100, null=True, blank=True)
     text = models.TextField(null=True, blank=True)
-    # duration = models.FloatField(editable=False, null=True)
-    # video = VideoField(duration_field='duration')
-    # format_set = GenericRelation(Format)
+    duration = models.FloatField(editable=False, null=True)
+    video = VideoField(duration_field='duration', null=True, blank=True)
+    format_set = GenericRelation(Format)
     preprocessing_done = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

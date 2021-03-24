@@ -15,7 +15,7 @@ COPY . .
 
 RUN apk update && apk add --no-cache --virtual .build-deps bash \
     vim gcc linux-headers mariadb-dev musl-dev openssl git \
-    sudo  py3-pip curl jpeg-dev  zlib-dev  freetype-dev  lcms2-dev  \
+    sudo  py3-pip curl jpeg-dev ffmpeg zlib-dev  freetype-dev  lcms2-dev  \
     openjpeg-dev  tiff-dev  tk-dev  tcl-dev  harfbuzz-dev  fribidi-dev\
     && pip3 install --upgrade pip \
     && pip3 install -r requirements.txt \
@@ -33,7 +33,7 @@ RUN apk update && apk add --no-cache --virtual .build-deps bash \
     && apk add --virtual .rundeps $runDeps \
     && apk del .build-deps
 
-
+RUN apk add ffmpeg
 RUN /usr/bin/crontab cron && touch /var/log/cron.log
 
 FROM builder as collectstatic
